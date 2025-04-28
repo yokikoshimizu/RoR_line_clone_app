@@ -1,0 +1,7 @@
+<h1>友達一覧</h1>
+
+<ul>
+    <% @friends.each do |friend| %>
+        <li><%= friend.email %></li>
+    <% end %>
+</ul>

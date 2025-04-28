@@ -1,0 +1,20 @@
+<h1>他のユーザー一覧</h1>
+<ul>
+    <%# `@users` はコントローラーで定義した「自分以外のユーザー一覧」の配列%>
+    <%#`.each do |user|` は、その配列を1つずつ取り出して、`user` に代入しながら繰り返す処理%>
+
+    <% @users.each do |user| %>
+     <li>
+        <%= user.email %>
+
+        <%# `unless`:「〜でなければ」という条件分岐%>
+        <%# `current_user.friends` 今ログインしているユーザーの友達一覧%>
+        <%# `.include?(user)` 「この user がすでに友達に入っているか？」をチェック%>
+        <% unless current_user.friends.include?(user) %>
+            <%= button_to "友達に追加", friendships_path(friend_id: user.id), method: :post %>
+        <% else %>
+            <%= button_to "削除", friendships_path(current_user.friendships.find_by(friend_id: user.id))%>
+        <% end %>
+     </li>
+    <% end %>
+</ul>
